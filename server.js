@@ -11,7 +11,6 @@ import todoRouter from "./routes/todo.routes.js";
 import connectToDatabase from "./db/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
-import corsOptions from "./middlewares/cors.middleware.js";
 
 const app = express();
 const filename = fileURLToPath(import.meta.url);
@@ -19,7 +18,7 @@ const __dirname = path.dirname(filename);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(corsOptions);
+app.use(cors("*"));
 app.use(cookieParser());
 app.use(arcjetMiddleware);
 app.use(express.static(path.join(__dirname, "public")));
