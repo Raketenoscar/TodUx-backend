@@ -47,8 +47,6 @@ MONGODB_URI="your_mongodb_connection_string"
 JWT_SECRET="your_secret_key"
 ARCJET_KEY="your_arcjet_api_key"
 ARCJET_ENV="development" or "production"
-DOMAIN="http://localhost:3000" for development. For Production use your real domain (https://yourdomain.com)
-SEC_DOMAIN="http://127.0.0.1:3000" for development. For Production use your real secondary domain (https://www.yourdomain.com)
 ```
 
 4. Start the server:
@@ -542,7 +540,6 @@ The API serves a small frontend and 2 error pages:
 │   └── mongodb.js
 ├── middlewares/         # Express middlewares
 │   ├── auth.middleware.js
-│   ├── cors.middleware.js
 │   ├── arcjet.middleware.js
 │   └── error.middleware.js
 ├── models/              # Mongoose schemas
