@@ -69,7 +69,7 @@ The project uses ESLint for code quality. Configuration is in `eslint.config.js`
 
 ## Contributing
 
-Contributions are welcome. For more Infos read the CONTRIBUTIONS.md
+Contributions are welcome. For more Infos read the [contributions.md](/contributions.md)
 
 ## License
 
