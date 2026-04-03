@@ -56,7 +56,7 @@ npm start
 
 The server will start on the port specified in your `.env` file (default: 3000).
 
-API Documentation can be found [here](https://raketenoscar.xyz/cheatsheet)
+API Documentation can be found [here](https://todux.online/cheatsheet)
 
 ### Available Scripts
 
