@@ -10,9 +10,6 @@ export const getTodos = async (req, res, next) => {
   }
 };
 export const createTodo = async (req, res, next) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     let { title, dueDate } = req.body;
     if (!title) {
@@ -29,30 +26,21 @@ export const createTodo = async (req, res, next) => {
       user: req.user._id,
     });
 
-    const newTodos = await Todo.create([newTodo], { session });
+    const newTodos = await Todo.create([newTodo]);
 
-    await session.commitTransaction();
-    session.endSession();
     res
       .status(201)
       .json({ success: true, message: "Todo Created", data: newTodos[0] });
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     next(error);
   }
 };
 export const updateTodo = async (req, res, next) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
     const { title, dueDate, completed } = req.body;
 
-    const todo = await Todo.findOne({ _id: id, user: req.user._id }).session(
-      session,
-    );
+    const todo = await Todo.findOne({ _id: id, user: req.user._id });
 
     if (!todo) {
       res.status(404);
@@ -68,43 +56,28 @@ export const updateTodo = async (req, res, next) => {
       todo.completed = completed;
     }
 
-    await todo.save({ session });
-
-    await session.commitTransaction();
-    session.endSession();
+    await todo.save();
 
     res.json({ success: true, message: "Todo Updated", data: todo });
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     next(error);
   }
 };
 export const deleteTodo = async (req, res, next) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
 
-    const todo = await Todo.findOne({ _id: id, user: req.user._id }).session(
-      session,
-    );
+    const todo = await Todo.findOne({ _id: id, user: req.user._id });
 
     if (!todo) {
       res.status(404);
       throw new Error("Todo not found");
     }
 
-    await todo.deleteOne({ session });
-
-    await session.commitTransaction();
-    session.endSession();
+    await todo.deleteOne();
 
     res.json({ success: true, message: "Todo Deleted" });
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     next(error);
   }
 };
